@@ -48,6 +48,71 @@ void free_weight_list (weight_head weights) {
 	} while (NULL != weights);
 }
 
+double id (double a) {
+	return a;
+}
+
+neuron_head create_input_neurons (list_head input_vector) {
+	if (NULL == input_vector) {
+		perror ("Empty input vector. Can't create new neuron.");
+		exit (EXIT_FAILURE);
+	}
+
+	list_head tmp = input_vector;
+
+	pNeuron cur_neuron;
+	neuron_head cur_neuron_head, first_neuron_head, prev_neuron_head;
+	unsigned int i = 1;
+
+	cur_neuron = (pNeuron) malloc (sizeof(struct neuron));
+	if (NULL == cur_neuron) {
+		perror ("Not enough memory to create neuron.");
+		exit (EXIT_FAILURE);
+	}
+
+	cur_neuron->output = input_vector->value;
+	cur_neuron->net_sum = 0;
+	cur_neuron->transfer = &id;
+	cur_neuron->weights = NULL;
+	input_vector = input_vector->next;
+
+	first_neuron_head = (neuron_head) malloc (sizeof(struct neuron_head));
+	first_neuron_head->current_neuron = cur_neuron;
+	first_neuron_head->index = 0;
+	prev_neuron_head = first_neuron_head;
+
+	while (NULL != input_vector) {
+		cur_neuron = (pNeuron) malloc (sizeof(struct neuron));
+		if (NULL == cur_neuron) {
+			perror ("Not enough memory to create neuron.");
+			exit (EXIT_FAILURE);
+		}
+
+		// Init standard values.
+		cur_neuron->output = input_vector->value;
+		cur_neuron->net_sum = 0;
+		cur_neuron->transfer = &id;
+		cur_neuron->weights = NULL;
+
+		cur_neuron_head = (neuron_head) malloc (sizeof(struct neuron_head));
+		cur_neuron_head->current_neuron = cur_neuron;
+		cur_neuron_head->index = i;
+		cur_neuron_head->prev  = prev_neuron_head;
+		prev_neuron_head->next = cur_neuron_head;
+
+		prev_neuron_head = cur_neuron_head;
+		i++;
+		input_vector = input_vector->next;
+	}
+
+	cur_neuron_head->next   = first_neuron_head;
+	first_neuron_head->prev = cur_neuron_head;
+
+	input_vector = tmp;
+
+	return first_neuron_head;
+}
+
 /**
  *	Initialize a neuron with random weights and tanh as transfer function.
  *	Has to be given the number of inputs.

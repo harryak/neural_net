@@ -22,3 +22,19 @@
 	"list.h"
 	"neuron.h"
 
+1447513002 source:/home/rossmann/Documents/uni/code/tnn/mlp/neural_net/list.c
+	<stdlib.h>
+	<stdio.h>
+	"list.h"
+
+1447513000 /home/rossmann/Documents/uni/code/tnn/mlp/neural_net/list.h
+
+1447516062 source:/home/rossmann/Documents/uni/code/tnn/mlp/neural_net/main.c
+	<stdio.h>
+	<stdlib.h>
+	"list.h"
+	"neuron.h"
+
+1447516021 /home/rossmann/Documents/uni/code/tnn/mlp/neural_net/neuron.h
+	"list.h"
+
