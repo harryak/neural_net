@@ -36,6 +36,7 @@ typedef struct neuron_head {
 } *neuron_head;
 
 pNeuron create_random_neuron (neuron_head input_neuron_head);
+neuron_head create_neuron_list (unsigned int neuron_count, neuron_head prev_layer_neurons);
 void free_neuron (pNeuron cur_neuron);
 
 #endif // NEURON_H_INCLUDED

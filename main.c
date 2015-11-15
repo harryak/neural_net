@@ -23,71 +23,14 @@ typedef struct mlp {
 } *mlp;
 
 /**
- *	Given the needed amount of neurons and the number of their inputs this function creates a new
- *	doubly linked list of random neurons.
- */
-neuron_head init_neuron_list (unsigned int neuron_count, unsigned int input_count) {
-	if (0 == neuron_count) return NULL;
-
-	// Start with a new list node.
-	neuron_head current_list_head = (neuron_head) malloc (sizeof(struct neuron_head));
-
-	// The list of neurons (as the neurons are all random) is built from highest to lowest index.
-	// So save the last list node for linking later.
-	neuron_head last_list_head = current_list_head;
-	while (0 < neuron_count) {
-		// First: Fill this node with a random neuron, set index.
-		// current_list_head->current_neuron = create_random_neuron (NULL);
-		current_list_head->index = neuron_count;
-
-		// Generate new list node and prepend it, then link it and make it the current node.
-		current_list_head->prev = (neuron_head) malloc (sizeof(struct neuron_head));
-		current_list_head->prev->next = current_list_head;
-		current_list_head = current_list_head->prev;
-
-		// Decrease needed nodes/neurons.
-		neuron_count--;
-	}
-	last_list_head->next    = current_list_head;
-	current_list_head->prev = last_list_head;
-
-	return current_list_head;
-}
-
-/**
- *	Frees a neuron list and its contents.
- */
-void free_neuron_list (neuron_head current_list_head) {
-	if (NULL == current_list_head) return;
-
-	neuron_head tmp = current_list_head;
-
-	while (NULL != current_list_head) {
-		free_neuron (current_list_head->current_neuron);
-		current_list_head->prev->next = current_list_head->next;
-		current_list_head->next->prev = current_list_head->prev;
-
-		if (current_list_head->next == current_list_head) {
-			tmp = NULL;
-		} else {
-			tmp = current_list_head->next;
-		}
-
-		free (current_list_head);
-
-		current_list_head = tmp;
-	}
-}
-
-/**
  *	Inits a layer-struct.
  */
-pLayer init_layer (unsigned int index, unsigned int layer_size, unsigned int prev_layer_size) {
+pLayer create_layer (unsigned int index, unsigned int layer_size, unsigned int prev_layer_size) {
 	pLayer cur_layer = (pLayer) malloc (sizeof(struct layer));
 
 	cur_layer->index		= index;
 	cur_layer->neuron_count = layer_size;
-	cur_layer->neurons		= init_neuron_list (layer_size, prev_layer_size);
+	cur_layer->neurons		= create_neuron_list (layer_size, prev_layer_size);
 
 	return cur_layer;
 }
@@ -150,7 +93,7 @@ int main (int argc, char *argv[], char *env[]) {
 	}*/
 
 	// Init output layer.
-	mlp_instance->current_layer = init_layer (i, output_count, input_count);
+	mlp_instance->current_layer = create_layer (i, output_count, input_count);
 
 	// Do main stuff.
 
