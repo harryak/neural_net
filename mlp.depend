@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1447513002 source:/home/rossmann/Documents/uni/code/tnn/mlp/list.c
+	<stdlib.h>
+	<stdio.h>
+	"list.h"
+
+1447513000 /home/rossmann/Documents/uni/code/tnn/mlp/list.h
+
+1446483239 source:/home/rossmann/Documents/uni/code/tnn/mlp/neuron.c
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	"list.h"
+	"neuron.h"
+
+1447515973 /home/rossmann/Documents/uni/code/tnn/mlp/neuron.h
+	"list.h"
+
+1447512978 source:/home/rossmann/Documents/uni/code/tnn/mlp/main.c
+	<stdio.h>
+	<stdlib.h>
+	"list.h"
+	"neuron.h"
+
