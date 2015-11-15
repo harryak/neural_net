@@ -30,3 +30,8 @@
 
 # Debug files
 *.dSYM/
+
+# Codeblocks shit
+*.layout
+*.depend
+bin/
