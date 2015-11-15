@@ -32,6 +32,7 @@
 *.dSYM/
 
 # Codeblocks shit
+*.cbp
 *.layout
 *.depend
 bin/
